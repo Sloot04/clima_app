@@ -91,13 +91,20 @@ Widget futureBuilder(String value) {
       builder: (BuildContext context, AsyncSnapshot<CityWeather> snapshot) {
         if (snapshot.hasData) {
           CityWeather city = snapshot.data!;
-          return Tarjeta(
-            city: city.name!,
-            temp: '${city.main!.temp}',
-            countryCode: city.sys!.country!,
-            icon: city.weather!.first.icon!,
-            description: city.weather!.first.description!,
-          );
+          Widget widget;
+          city.name! == 'Ciudad no encontrada'
+              ? widget = Text(
+                  city.name!,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                )
+              : widget = Tarjeta(
+                  city: city.name!,
+                  temp: '${city.main!.temp}',
+                  countryCode: city.sys!.country!,
+                  icon: city.weather!.first.icon!,
+                  description: city.weather!.first.description!,
+                );
+          return widget;
         } else if (snapshot.hasError) {
           return const Text('snapshot.hasError');
         } else {
