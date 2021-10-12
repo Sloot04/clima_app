@@ -1,3 +1,5 @@
+import 'package:api_clima/class/city_forecast.dart';
+import 'package:api_clima/widgets/tarjeta_forecast.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
@@ -15,8 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController controller = TextEditingController();
   String city = '';
-  List<Tarjeta> cityForecast = [
-    const Tarjeta(
+  List<TarjetaWeather> cityForecast = [
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '18',
         countryCode: 'AR',
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '19',
         countryCode: 'AR',
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '17',
         countryCode: 'AR',
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '16',
         countryCode: 'AR',
@@ -52,7 +54,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '20',
         countryCode: 'AR',
@@ -61,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '21',
         countryCode: 'AR',
@@ -70,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         width: 130,
         height: 200,
         country: false),
-    const Tarjeta(
+    const TarjetaWeather(
         city: 'Paraná',
         temp: '18',
         countryCode: 'AR',
@@ -131,12 +133,42 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 3),
           futureBuilder(city),
-          SingleChildScrollView(
+
+          /*  SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [...cityForecast.map((element) => element).toList()],
-              )),
+              )), */
+          FutureBuilder<CityForecast>(
+            future: getForecast(lon: -94.04, lat: 33.44),
+            builder:
+                (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return TarjetaForecast(
+                    dt: '${snapshot.data!.lat}',
+                    min: snapshot.data!.daily.toList().first.dt!.toDouble(),
+                    max: snapshot.data!.daily.first.temp!.max!.toDouble(),
+                    icon: '${snapshot.data!.daily.first.weather!.first.icon}',
+                    description:
+                        '${snapshot.data!.daily.first.weather!.first.description}');
+              }
+              /*  if (snapshot.hasError) {
+                return const Text('snapshot.hasError');
+              } else {
+                return Column(
+                  children: const [
+                    SizedBox(height: 20),
+                    CircularProgressIndicator(),
+                  ],
+                );
+              } */
+            },
+          )
         ],
       )),
     );
@@ -168,7 +200,7 @@ Widget futureBuilder(String value) {
                   city.name!,
                   style: const TextStyle(color: Colors.white, fontSize: 20),
                 )
-              : widget = Tarjeta(
+              : widget = TarjetaWeather(
                   city: city.name!,
                   temp: '${city.main!.temp}',
                   countryCode: city.sys!.country!,

@@ -14,19 +14,21 @@ Future<CityWeather> getWeather(String city) async {
   }
 }
 
-Future<CityForecast> getForecast(double lon, double lat) async {
+Future<CityForecast> getForecast(
+    {required double lon, required double lat}) async {
   final url = Uri.parse(
       "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,hourly,alerts&appid=252a7ec697ac784e8a0e7a6bc28d2aaf");
   /* final url = Uri.parse(
       "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=current,minutely,hourly,alerts&appid=252a7ec697ac784e8a0e7a6bc28d2aaf"); */
 
   try {
+   
     final get = await http.get(url);
+    print(get.body);
     final cityForecast = cityForecastFromJson(get.body);
 
-    //print(cityForecast.daily!.first.clouds);
     return cityForecast;
   } catch (e) {
-    return CityForecast(timezone: 'Pronostico no encontrado');
+    return CityForecast(timezone: 'Pronostico no encontrado', daily: []);
   }
 }

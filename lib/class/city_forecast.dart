@@ -11,12 +11,12 @@ String cityForecastToJson(CityForecast data) => json.encode(data.toJson());
 
 class CityForecast {
   CityForecast({
-    this.lat,
-    this.lon,
-    this.timezone,
-    this.timezoneOffset,
-    this.current,
-    this.daily,
+     this.lat,
+     this.lon,
+     this.timezone,
+     this.timezoneOffset,
+     this.current,
+    required this.daily,
   });
 
   double? lat;
@@ -24,7 +24,7 @@ class CityForecast {
   String? timezone;
   int? timezoneOffset;
   Current? current;
-  List<Daily>? daily;
+  List<Daily> daily;
 
   factory CityForecast.fromJson(Map<String, dynamic> json) => CityForecast(
         lat: json["lat"].toDouble(),
@@ -41,7 +41,7 @@ class CityForecast {
         "timezone": timezone,
         "timezone_offset": timezoneOffset,
         "current": current!.toJson(),
-        "daily": List<dynamic>.from(daily!.map((x) => x.toJson())),
+        "daily": List<dynamic>.from(daily.map((x) => x.toJson())),
       };
 }
 

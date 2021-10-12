@@ -3,25 +3,25 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:flutter/widgets.dart';
 
-class TarjetaWeather extends StatelessWidget {
-  final String city;
-  final String temp;
-  final String countryCode;
+class TarjetaForecast extends StatelessWidget {
+  final String dt;
+  final double min;
+  final double max;
   final String icon;
   final String description;
   final double width;
   final double height;
   final bool country;
- const TarjetaWeather(
+  const TarjetaForecast(
       {Key? key,
-      required this.city,
-      required this.temp,
-      required this.countryCode,
+      required this.dt,
       required this.icon,
       required this.description,
       this.width = 180,
       this.height = 250,
-      this.country = true})
+      this.country = true,
+      required this.min,
+      required this.max})
       : super(key: key);
 
   @override
@@ -45,7 +45,7 @@ class TarjetaWeather extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    city,
+                    dt,
                     style: TextStyle(
                         fontSize: width / 9,
                         fontWeight: FontWeight.w400,
@@ -53,22 +53,6 @@ class TarjetaWeather extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5),
-                country
-                    ? Container(
-                        margin: const EdgeInsets.only(bottom: 13),
-                        height: 20,
-                        width: 30,
-                        decoration: const BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        child: Center(
-                            child: Text(
-                          countryCode,
-                          style: const TextStyle(color: Colors.white),
-                        )),
-                      )
-                    : const SizedBox()
               ],
             ),
             SizedBox(
@@ -77,15 +61,31 @@ class TarjetaWeather extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  temp,
-                  style: TextStyle(
-                      fontSize: width / 6, fontWeight: FontWeight.bold),
+                  '$min',
+                  style:const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       '°c',
-                      style: TextStyle(fontSize: width / 8),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: country ? 20 : width / 10,
+                    )
+                  ],
+                ),
+                Text(
+                  '$max',
+                  style:const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Column(
+                  children: [
+                    const Text(
+                      '°c',
+                      style: TextStyle(fontSize: 20),
                     ),
                     SizedBox(
                       height: country ? 20 : width / 10,
