@@ -11,6 +11,7 @@ class Tarjeta extends StatelessWidget {
   final String description;
   final double width;
   final double height;
+  final bool country;
   const Tarjeta(
       {Key? key,
       required this.city,
@@ -19,7 +20,8 @@ class Tarjeta extends StatelessWidget {
       required this.icon,
       required this.description,
       this.width = 180,
-      this.height = 250})
+      this.height = 250,
+      this.country = true})
       : super(key: key);
 
   @override
@@ -44,46 +46,49 @@ class Tarjeta extends StatelessWidget {
                 Expanded(
                   child: Text(
                     city,
-                    style: const TextStyle(
-                        fontSize: 20,
+                    style: TextStyle(
+                        fontSize: width / 9,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF1565C0)),
+                        color: const Color(0xFF1565C0)),
                   ),
                 ),
                 const SizedBox(width: 5),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 13),
-                  height: 20,
-                  width: 30,
-                  decoration: const BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Center(
-                      child: Text(
-                    countryCode,
-                    style: const TextStyle(color: Colors.white),
-                  )),
-                )
+                country
+                    ? Container(
+                        margin: const EdgeInsets.only(bottom: 13),
+                        height: 20,
+                        width: 30,
+                        decoration: const BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Center(
+                            child: Text(
+                          countryCode,
+                          style: const TextStyle(color: Colors.white),
+                        )),
+                      )
+                    : const SizedBox()
               ],
             ),
-            const SizedBox(
-              height: 10,
+             SizedBox(
+              height: country ? 10 : width /18,
             ),
             Row(
               children: [
                 Text(
                   temp,
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: width / 6, fontWeight: FontWeight.bold),
                 ),
                 Column(
-                  children: const [
+                  children:  [
                     Text(
                       '°c',
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: width / 8),
                     ),
                     SizedBox(
-                      height: 20,
+                      height : country?  20: width / 10,
                     )
                   ],
                 )
@@ -93,8 +98,8 @@ class Tarjeta extends StatelessWidget {
               'http://openweathermap.org/img/w/$icon.png',
               scale: 1.5,
             ),
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height:   country? 20: width / 9,
             ),
             Text(descriptionUpper,
                 style: const TextStyle(color: Color(0xFF1565C0)))

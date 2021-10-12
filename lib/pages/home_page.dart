@@ -23,7 +23,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '19',
@@ -31,7 +32,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '17',
@@ -39,7 +41,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '16',
@@ -47,7 +50,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '20',
@@ -55,7 +59,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '21',
@@ -63,7 +68,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
     const Tarjeta(
         city: 'Paraná',
         temp: '18',
@@ -71,7 +77,8 @@ class _HomePageState extends State<HomePage> {
         icon: '10d',
         description: 'Scattered clouds',
         width: 130,
-        height: 200),
+        height: 200,
+        country: false),
   ];
 
   @override
