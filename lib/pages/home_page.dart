@@ -15,6 +15,64 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController controller = TextEditingController();
   String city = '';
+  List<Tarjeta> cityForecast = [
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '18',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '19',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '17',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '16',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '20',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '21',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+    const Tarjeta(
+        city: 'Paraná',
+        temp: '18',
+        countryCode: 'AR',
+        icon: '10d',
+        description: 'Scattered clouds',
+        width: 130,
+        height: 200),
+  ];
 
   @override
   void dispose() {
@@ -45,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: TextField(
               controller: controller,
               style: const TextStyle(color: Colors.white),
@@ -64,8 +122,14 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 3),
           futureBuilder(city),
+          SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [...cityForecast.map((element) => element).toList()],
+              )),
         ],
       )),
     );
@@ -76,7 +140,7 @@ Widget futureBuilder(String value) {
   if (value.isEmpty) {
     return Column(
       children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 5),
         FadeIn(
           child: const Text(
             'No se realizo ninguna busqueda',

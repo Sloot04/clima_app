@@ -9,13 +9,17 @@ class Tarjeta extends StatelessWidget {
   final String countryCode;
   final String icon;
   final String description;
+  final double width;
+  final double height;
   const Tarjeta(
       {Key? key,
       required this.city,
       required this.temp,
       required this.countryCode,
       required this.icon,
-      required this.description})
+      required this.description,
+      this.width = 180,
+      this.height = 250})
       : super(key: key);
 
   @override
@@ -25,8 +29,8 @@ class Tarjeta extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(30),
         margin: const EdgeInsets.all(15),
-        width: 230,
-        height: 300,
+        width: width,
+        height: height,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(30)),
           color: Color(0xFFFFF8E1),
@@ -63,14 +67,14 @@ class Tarjeta extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               children: [
                 Text(
                   temp,
-                  style:
-                      const TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: const [
@@ -86,8 +90,8 @@ class Tarjeta extends StatelessWidget {
               ],
             ),
             Image.network(
-              'http://openweathermap.org/img/w/$icon.png'
-              ,
+              'http://openweathermap.org/img/w/$icon.png',
+              scale: 1.5,
             ),
             const SizedBox(
               height: 20,
