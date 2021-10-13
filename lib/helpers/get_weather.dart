@@ -14,7 +14,8 @@ Future<CityWeather> getWeather(String city) async {
   }
 }
 
-Future<CityForecast> getForecast(double lon, double lat) async {
+Future<CityForecast> getForecast(
+    {required double lon, required double lat}) async {
   final url = Uri.parse(
       "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,hourly,alerts&units=metric&appid=252a7ec697ac784e8a0e7a6bc28d2aaf");
   /* final url = Uri.parse(

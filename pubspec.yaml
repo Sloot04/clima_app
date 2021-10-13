@@ -39,6 +39,7 @@ dependencies:
   animated_splash_screen: ^1.1.0
   page_transition: 2.0.1-nullsafety.0
   intl: ^0.17.0
+  provider: ^6.0.1
   
 
 dev_dependencies:
