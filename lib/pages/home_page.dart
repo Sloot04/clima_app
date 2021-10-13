@@ -1,7 +1,10 @@
-import 'package:api_clima/class/city_forecast.dart';
-import 'package:api_clima/widgets/forecast_card.dart';
+import 'package:api_clima/helpers/read_time_stamp.dart';
 import 'package:flutter/material.dart';
+
 import 'package:animate_do/animate_do.dart';
+import 'package:api_clima/class/city_forecast.dart';
+
+import 'package:api_clima/widgets/forecast_card.dart';
 
 import 'package:api_clima/class/city_weather.dart';
 import 'package:api_clima/helpers/get_weather.dart';
@@ -17,71 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController controller = TextEditingController();
   String city = '';
-  List<Tarjeta> cityForecast = [
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '18',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '19',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '17',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '16',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '20',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '21',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-    const Tarjeta(
-        city: 'Paraná',
-        temp: '18',
-        countryCode: 'AR',
-        icon: '10d',
-        description: 'Scattered clouds',
-        width: 130,
-        height: 200,
-        country: false),
-  ];
+  List cityForecast = [];
 
   @override
   void dispose() {
@@ -138,20 +77,32 @@ class _HomePageState extends State<HomePage> {
             builder:
                 (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
               if (snapshot.hasData) {
-                CityForecast city = snapshot.data!;
+                List<Daily> city = snapshot.data!.daily!;
+                String timezone = snapshot.data!.timezone!;
+                cityForecast = city;
+                cityForecast.removeAt(0);
+
                 Widget widget;
 
-                city.timezone == 'Pronostico no encontrado'
-                    ? widget = Text(city.timezone!)
-                    : widget = ForecastCard(
-                        dt: '${snapshot.data!.lat}',
-                        min:
-                            snapshot.data!.daily!.toList().first.dt!.toDouble(),
-                        max: snapshot.data!.daily!.first.temp!.max!.toDouble(),
-                        icon:
-                            '${snapshot.data!.daily!.first.weather!.first.icon}',
-                        description:
-                            '${snapshot.data!.daily!.first.weather!.first.description}');
+                timezone == 'Pronostico no encontrado'
+                    ? widget = Text(timezone)
+                    : widget = SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...cityForecast.map(
+                              (element) => ForecastCard(
+                                  dt: readTimestamp(element.dt),
+                                  min: element.temp!.min!,
+                                  max: element.temp!.max!,
+                                  icon: '${element.weather!.first.icon}',
+                                  description:
+                                      '${element.weather!.first.description}'),
+                            ),
+                          ],
+                        ),
+                      );
                 return widget;
               } else if (snapshot.hasError) {
                 return const Text('snapshot.hasError');
