@@ -1,5 +1,5 @@
-import 'package:api_clima/class/city_forecast.dart';
 import 'package:http/http.dart' as http;
+import 'package:api_clima/class/city_forecast.dart';
 import 'package:api_clima/class/city_weather.dart';
 
 Future<CityWeather> getWeather(String city) async {

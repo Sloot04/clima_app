@@ -32,7 +32,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-   
+    final coor = Provider.of<CoorModel>(context, listen: true);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF0D47A1),
@@ -51,88 +52,95 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Center(
-          child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: TextField(
-              controller: controller,
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: TextField(
+                controller: controller,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                 ),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                onSubmitted: (value) {
+                  city = controller.text;
+                  setState(() {});
+                  controller.clear();
+                },
               ),
-              onSubmitted: (value) {
-                city = controller.text;
-                setState(() {});
-                controller.clear();
-              },
             ),
-          ),
-          const SizedBox(height: 3),
-          weatherBuilder(city),
-          forecastBuilder()
-
-         
-        ],
-      )),
+            const SizedBox(height: 3),
+            weatherBuilder(city),
+            ElevatedButton(
+                onPressed: () {
+                  print(coor.lat);
+                  coor.isWeather = !coor.isWeather;
+                },
+                child: const Text("BOTON")),
+            coor.isWeather && coor.lon != null && coor.lat != null
+                ? forecastBuilder(lon: coor.lon, lat: coor.lat)
+                : const Text("holaaaaaaaaaa")
+          ],
+        ),
+      ),
     );
   }
 
-  FutureBuilder<CityForecast> forecastBuilder() {
-     final coor = Provider.of<CoorModel>(context);
+  FutureBuilder<CityForecast> forecastBuilder({lon, lat}) {
+    //final coor = Provider.of<CoorModel>(context);
     return FutureBuilder<CityForecast>(
-          future: getForecast(lon: coor.lon, lat: coor.lat),
-          builder:
-              (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
-            if (snapshot.hasData) {
-              List<Daily> city = snapshot.data!.daily!;
-              String timezone = snapshot.data!.timezone!;
-              cityForecast = city;
-              cityForecast.removeAt(0);
+      future: getForecast(lat: lat, lon: lon),
+      builder: (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
+        if (snapshot.hasData) {
+          List<Daily> city = snapshot.data!.daily!;
+          String timezone = snapshot.data!.timezone!;
+          cityForecast = city;
+          cityForecast.removeAt(0);
 
-              Widget widget;
+          Widget widget;
 
-              timezone == 'Pronostico no encontrado'
-                  ? widget = Text(timezone)
-                  : widget = SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...cityForecast.map(
-                            (element) => ForecastCard(
-                                dt: readTimestamp(element.dt),
-                                min: element.temp!.min!,
-                                max: element.temp!.max!,
-                                icon: '${element.weather!.first.icon}',
-                                description:
-                                    '${element.weather!.first.description}'),
-                          ),
-                        ],
+          timezone == 'Pronostico no encontrado'
+              ? widget = Text(timezone)
+              : widget = SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...cityForecast.map(
+                        (element) => ForecastCard(
+                            dt: readTimestamp(element.dt),
+                            min: element.temp!.min!,
+                            max: element.temp!.max!,
+                            icon: '${element.weather!.first.icon}',
+                            description:
+                                '${element.weather!.first.description}'),
                       ),
-                    );
-              return widget;
-            } else if (snapshot.hasError) {
-              return const Text('snapshot.hasError');
-            } else {
-              return Column(
-                children: const [
-                  SizedBox(height: 20),
-                  CircularProgressIndicator(),
-                ],
-              );
-            }
-          },
-        );
+                    ],
+                  ),
+                );
+
+          return widget;
+        } else if (snapshot.hasError) {
+          return const Text('snapshot.hasError');
+        } else {
+          return Column(
+            children: const [
+              SizedBox(height: 20),
+              CircularProgressIndicator(),
+            ],
+          );
+        }
+      },
+    );
   }
 }
 
-Widget  weatherBuilder(String value) {
+Widget weatherBuilder(String value) {
   if (value.isEmpty) {
     return Column(
       children: [
@@ -149,7 +157,7 @@ Widget  weatherBuilder(String value) {
     return FutureBuilder<CityWeather>(
       future: getWeather(value),
       builder: (BuildContext context, AsyncSnapshot<CityWeather> snapshot) {
-         final coor = Provider.of<CoorModel>(context);
+        final coor = Provider.of<CoorModel>(context);
         if (snapshot.hasData) {
           CityWeather city = snapshot.data!;
           Widget widget;
@@ -159,9 +167,6 @@ Widget  weatherBuilder(String value) {
               style: const TextStyle(color: Colors.white, fontSize: 20),
             );
           } else {
-            coor.lat = city.coord!.lat!;
-            coor.lon = city.coord!.lon!;
-
             widget = Tarjeta(
               city: city.name!,
               temp: '${city.main!.temp}',
@@ -169,7 +174,12 @@ Widget  weatherBuilder(String value) {
               icon: city.weather!.first.icon!,
               description: city.weather!.first.description!,
             );
+            coor.lat = city.coord!.lat!;
+            print("178 ====>${coor.lat}");
+
+            coor.lon = city.coord!.lon!;
           }
+
           return widget;
         } else if (snapshot.hasError) {
           return const Text('snapshot.hasError');
