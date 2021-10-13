@@ -24,7 +24,6 @@ Future<CityForecast> getForecast(double lon, double lat) async {
     final get = await http.get(url);
     final cityForecast = cityForecastFromJson(get.body);
 
-    //print(cityForecast.daily!.first.clouds);
     return cityForecast;
   } catch (e) {
     return CityForecast(timezone: 'Pronostico no encontrado');

@@ -1,3 +1,5 @@
+import 'package:api_clima/class/city_forecast.dart';
+import 'package:api_clima/widgets/forecast_card.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
@@ -131,12 +133,45 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 3),
           futureBuilder(city),
-          SingleChildScrollView(
+          FutureBuilder<CityForecast>(
+            future: getForecast(1, 1),
+            builder:
+                (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
+              if (snapshot.hasData) {
+                CityForecast city = snapshot.data!;
+                Widget widget;
+
+                city.timezone == 'Pronostico no encontrado'
+                    ? widget = Text(city.timezone!)
+                    : widget = ForecastCard(
+                        dt: '${snapshot.data!.lat}',
+                        min:
+                            snapshot.data!.daily!.toList().first.dt!.toDouble(),
+                        max: snapshot.data!.daily!.first.temp!.max!.toDouble(),
+                        icon:
+                            '${snapshot.data!.daily!.first.weather!.first.icon}',
+                        description:
+                            '${snapshot.data!.daily!.first.weather!.first.description}');
+                return widget;
+              } else if (snapshot.hasError) {
+                return const Text('snapshot.hasError');
+              } else {
+                return Column(
+                  children: const [
+                    SizedBox(height: 20),
+                    CircularProgressIndicator(),
+                  ],
+                );
+              }
+            },
+          )
+
+          /* SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [...cityForecast.map((element) => element).toList()],
-              )),
+              )), */
         ],
       )),
     );
