@@ -88,7 +88,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   FutureBuilder<CityForecast> forecastBuilder({lon, lat}) {
-    //final coor = Provider.of<CoorModel>(context);
     return FutureBuilder<CityForecast>(
       future: getForecast(lat: lat, lon: lon),
       builder: (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
@@ -110,8 +109,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ...cityForecast.map(
                         (element) => ForecastCard(
-                          width: size.width * 0.38,
-                          height: size.height *0.3,
+                            width: size.width * 0.38,
+                            height: size.height * 0.3,
                             dt: readTimestamp(element.dt),
                             min: element.temp!.min!,
                             max: element.temp!.max!,
@@ -168,13 +167,12 @@ Widget weatherBuilder(String value) {
             );
           } else {
             coor.lat = city.coord!.lat!;
-
             coor.lon = city.coord!.lon!;
             widget = Column(
               children: [
                 Tarjeta(
-                  width: size.width *0.4,
-                  height: size.height *0.32,
+                  width: size.width * 0.4,
+                  height: size.height * 0.32,
                   city: city.name!,
                   temp: '${city.main!.temp}',
                   countryCode: city.sys!.country!,
