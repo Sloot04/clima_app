@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         initialRoute: 'home',
         routes: {
           'home': (_) => AnimatedSplashScreen(
+            duration: 100,
               splashIconSize: 200,
               splash: Icons.home,
               // backgroundColor: const Color(0xFF0D47A1),

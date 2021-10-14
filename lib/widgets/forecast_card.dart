@@ -17,8 +17,8 @@ class ForecastCard extends StatelessWidget {
       required this.dt,
       required this.icon,
       required this.description,
-      this.width = 180,
-      this.height = 250,
+      this.width = 100,
+      this.height = 190,
       this.country = true,
       required this.min,
       required this.max})
@@ -29,8 +29,8 @@ class ForecastCard extends StatelessWidget {
     String descriptionUpper = description.toUpperCase();
     return FadeIn(
       child: Container(
-        padding: const EdgeInsets.all(30),
-        margin: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(10),
         width: width,
         height: height,
         decoration: const BoxDecoration(
@@ -56,42 +56,46 @@ class ForecastCard extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: country ? 10 : width / 18,
+              height: width / 20,
             ),
             Row(
               children: [
                 Text(
                   '$min',
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: width / 9, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: [
-                    const Text(
+                    Text(
                       '°c',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: width / 10),
                     ),
                     SizedBox(
-                      height: country ? 20 : width / 10,
+                      height: width / 10,
                     )
                   ],
                 ),
+              ],
+            ),
+            Row(
+              children: [
                 Text(
                   '$max',
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: width / 9, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: [
-                    const Text(
+                    Text(
                       '°c',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: width / 10),
                     ),
                     SizedBox(
                       height: country ? 20 : width / 10,
                     )
                   ],
-                )
+                ),
               ],
             ),
             Image.network(
@@ -99,10 +103,10 @@ class ForecastCard extends StatelessWidget {
               scale: 1.5,
             ),
             SizedBox(
-              height: country ? 20 : width / 9,
+              height:  width / 20,
             ),
             Text(descriptionUpper,
-                style: const TextStyle(color: Color(0xFF1565C0)))
+                style: TextStyle(color:const Color(0xFF1565C0), fontSize: width / 13))
           ],
         ),
       ),

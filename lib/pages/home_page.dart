@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {
               city = '';
+              coor.isWeather = false;
               setState(() {});
             },
             icon: const Icon(Icons.delete),
@@ -69,22 +70,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onSubmitted: (value) {
                   city = controller.text;
+                  coor.isWeather = false;
+
                   setState(() {});
                   controller.clear();
                 },
               ),
             ),
-            const SizedBox(height: 3),
             weatherBuilder(city),
-            ElevatedButton(
-                onPressed: () {
-                  print(coor.lat);
-                  coor.isWeather = !coor.isWeather;
-                },
-                child: const Text("BOTON")),
-            coor.isWeather && coor.lon != null && coor.lat != null
+            coor.isWeather
                 ? forecastBuilder(lon: coor.lon, lat: coor.lat)
-                : const Text("holaaaaaaaaaa")
+                : const Text("")
           ],
         ),
       ),
@@ -96,6 +92,7 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder<CityForecast>(
       future: getForecast(lat: lat, lon: lon),
       builder: (BuildContext context, AsyncSnapshot<CityForecast> snapshot) {
+        final size = MediaQuery.of(context).size;
         if (snapshot.hasData) {
           List<Daily> city = snapshot.data!.daily!;
           String timezone = snapshot.data!.timezone!;
@@ -113,6 +110,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ...cityForecast.map(
                         (element) => ForecastCard(
+                          width: size.width * 0.38,
+                          height: size.height *0.3,
                             dt: readTimestamp(element.dt),
                             min: element.temp!.min!,
                             max: element.temp!.max!,
@@ -157,6 +156,7 @@ Widget weatherBuilder(String value) {
     return FutureBuilder<CityWeather>(
       future: getWeather(value),
       builder: (BuildContext context, AsyncSnapshot<CityWeather> snapshot) {
+        final size = MediaQuery.of(context).size;
         final coor = Provider.of<CoorModel>(context);
         if (snapshot.hasData) {
           CityWeather city = snapshot.data!;
@@ -167,17 +167,27 @@ Widget weatherBuilder(String value) {
               style: const TextStyle(color: Colors.white, fontSize: 20),
             );
           } else {
-            widget = Tarjeta(
-              city: city.name!,
-              temp: '${city.main!.temp}',
-              countryCode: city.sys!.country!,
-              icon: city.weather!.first.icon!,
-              description: city.weather!.first.description!,
-            );
             coor.lat = city.coord!.lat!;
-            print("178 ====>${coor.lat}");
 
             coor.lon = city.coord!.lon!;
+            widget = Column(
+              children: [
+                Tarjeta(
+                  width: size.width *0.4,
+                  height: size.height *0.32,
+                  city: city.name!,
+                  temp: '${city.main!.temp}',
+                  countryCode: city.sys!.country!,
+                  icon: city.weather!.first.icon!,
+                  description: city.weather!.first.description!,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      coor.isWeather = true;
+                    },
+                    child: const Text("Extended forecast")),
+              ],
+            );
           }
 
           return widget;
