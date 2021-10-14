@@ -10,6 +10,7 @@ import 'package:api_clima/widgets/forecast_card.dart';
 import 'package:api_clima/class/city_weather.dart';
 import 'package:api_clima/helpers/get_weather.dart';
 import 'package:api_clima/widgets/tarjeta.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -180,10 +181,12 @@ Widget weatherBuilder(String value) {
                   description: city.weather!.first.description!,
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      coor.isWeather = true;
-                    },
-                    child: const Text("Extended forecast")),
+                  onPressed: () {
+                    coor.isWeather = true;
+                  },
+                  child: const Text("Extended forecast",
+                      style: TextStyle( fontSize: 18)),
+                ),
               ],
             );
           }
