@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
-import 'package:flutter/widgets.dart';
+
 
 class Tarjeta extends StatelessWidget {
   final String city;
@@ -39,33 +39,35 @@ class Tarjeta extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    city,
-                    style: TextStyle(
-                        fontSize: width / 9,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF1565C0)),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      city,
+                      style: TextStyle(
+                          fontSize: width / 9,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF1565C0)),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 5),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 13),
-                  height: 20,
-                  width: 30,
-                  decoration: const BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: Center(
-                      child: Text(
-                    countryCode,
-                    style: const TextStyle(color: Colors.white),
-                  )),
-                )
-              ],
+                  const SizedBox(width: 5),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 13),
+                    height: 20,
+                    width: 30,
+                    decoration: const BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Center(
+                        child: Text(
+                      countryCode,
+                      style: const TextStyle(color: Colors.white),
+                    )),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: width / 18,
