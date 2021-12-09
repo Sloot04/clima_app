@@ -29,7 +29,7 @@ class ForecastCard extends StatelessWidget {
     String descriptionUpper = description.toUpperCase();
     return FadeIn(
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         width: width,
         height: height,
@@ -38,19 +38,17 @@ class ForecastCard extends StatelessWidget {
           color: Color(0xFFFFF8E1),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Text(
-                    dt,
-                    style: TextStyle(
-                        fontSize: width / 9,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF1565C0)),
-                  ),
+                Text(
+                  dt,
+                  style: TextStyle(
+                      fontSize: width / 9,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF1565C0)),
                 ),
                 const SizedBox(width: 5),
               ],
@@ -59,6 +57,7 @@ class ForecastCard extends StatelessWidget {
               height: width / 20,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   '$min',
@@ -79,6 +78,7 @@ class ForecastCard extends StatelessWidget {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   '$max',
@@ -103,10 +103,13 @@ class ForecastCard extends StatelessWidget {
               scale: 1.5,
             ),
             SizedBox(
-              height:  width / 20,
+              height: width / 20,
             ),
-            Text(descriptionUpper,
-                style: TextStyle(color:const Color(0xFF1565C0), fontSize: width / 13))
+            Expanded(
+              child: Text(descriptionUpper,
+                  style: TextStyle(
+                      color: const Color(0xFF1565C0), fontSize: width / 13)),
+            )
           ],
         ),
       ),

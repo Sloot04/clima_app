@@ -5,8 +5,11 @@ class CoorModel with ChangeNotifier {
   double _lon = 0;
   bool _isWeather = false;
 
+  // ignore: unnecessary_getters_setters
   double get lat => _lat;
+  // ignore: unnecessary_getters_setters
   double get lon => _lon;
+  
   bool get isWeather => _isWeather;
 
   set lat(double value) => _lat = value;

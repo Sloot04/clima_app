@@ -157,6 +157,7 @@ Widget weatherBuilder(String value) {
       builder: (BuildContext context, AsyncSnapshot<CityWeather> snapshot) {
         final size = MediaQuery.of(context).size;
         final coor = Provider.of<CoorModel>(context);
+
         if (snapshot.hasData) {
           CityWeather city = snapshot.data!;
           Widget widget;
@@ -179,11 +180,13 @@ Widget weatherBuilder(String value) {
                   icon: city.weather!.first.icon!,
                   description: city.weather!.first.description!,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      coor.isWeather = true;
-                    },
-                    child: const Text("Extended forecast")),
+                coor.isWeather
+                    ? const SizedBox()
+                    : ElevatedButton(
+                        onPressed: () {
+                          coor.isWeather = true;
+                        },
+                        child: const Text("Extended forecast")),
               ],
             );
           }
