@@ -175,7 +175,7 @@ Widget weatherBuilder(String value) {
                   width: size.width * 0.4,
                   height: size.height * 0.32,
                   city: city.name!,
-                  temp: '${city.main!.temp}',
+                  temp: city.main!.temp!.toStringAsFixed(1),
                   countryCode: city.sys!.country!,
                   icon: city.weather!.first.icon!,
                   description: city.weather!.first.description!,

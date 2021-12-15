@@ -52,7 +52,7 @@ class ForecastCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$min',
+                  min.toStringAsFixed(1),
                   style: const TextStyle(
                       fontSize: 19, fontWeight: FontWeight.bold),
                 ),
@@ -73,7 +73,7 @@ class ForecastCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$max',
+                  max.toStringAsFixed(1),
                   style: const TextStyle(
                       fontSize: 19, fontWeight: FontWeight.bold),
                 ),
