@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                 size: 200,
                 color: Colors.blue,
               ),
-             backgroundColor: const Color(0xFF0D47A1),
+              backgroundColor: const Color(0xFF0D47A1),
               splashTransition: SplashTransition.fadeTransition,
               pageTransitionType: PageTransitionType.fade,
               nextScreen: const HomePage()),

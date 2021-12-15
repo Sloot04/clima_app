@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
 
           Widget widget;
 
-          timezone == 'Pronostico no encontrado'
+          timezone == 'Forecast not found'
               ? widget = Text(timezone)
               : widget = SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -145,7 +145,7 @@ Widget weatherBuilder(String value) {
         const SizedBox(height: 5),
         FadeIn(
           child: const Text(
-            'No se realizo ninguna busqueda',
+            'No search was performed',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
@@ -161,7 +161,7 @@ Widget weatherBuilder(String value) {
         if (snapshot.hasData) {
           CityWeather city = snapshot.data!;
           Widget widget;
-          if (city.name! == 'Ciudad no encontrada') {
+          if (city.name! == 'City not found') {
             widget = Text(
               city.name!,
               style: const TextStyle(color: Colors.white, fontSize: 20),
