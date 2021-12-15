@@ -39,39 +39,31 @@ class ForecastCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  dt,
-                  style: TextStyle(
-                      fontSize: width / 9,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF1565C0)),
-                ),
-                const SizedBox(width: 5),
-              ],
-            ),
-            SizedBox(
-              height: width / 20,
+            Text(
+              dt,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF1565C0)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$min',
-                  style: TextStyle(
-                      fontSize: width / 9, fontWeight: FontWeight.bold),
+                  min.toStringAsFixed(1),
+                  style: const TextStyle(
+                      fontSize: 19, fontWeight: FontWeight.bold),
                 ),
                 Column(
-                  children: [
+                  children: const [
                     Text(
                       '°c',
-                      style: TextStyle(fontSize: width / 10),
+                      style: TextStyle(fontSize: 15),
                     ),
                     SizedBox(
-                      height: width / 10,
+                      height: 10,
                     )
                   ],
                 ),
@@ -81,18 +73,18 @@ class ForecastCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$max',
-                  style: TextStyle(
-                      fontSize: width / 9, fontWeight: FontWeight.bold),
+                  max.toStringAsFixed(1),
+                  style: const TextStyle(
+                      fontSize: 19, fontWeight: FontWeight.bold),
                 ),
                 Column(
-                  children: [
+                  children: const [
                     Text(
                       '°c',
-                      style: TextStyle(fontSize: width / 10),
+                      style: TextStyle(fontSize: 15),
                     ),
                     SizedBox(
-                      height: country ? 20 : width / 10,
+                      height: 10,
                     )
                   ],
                 ),
@@ -102,14 +94,9 @@ class ForecastCard extends StatelessWidget {
               'http://openweathermap.org/img/w/$icon.png',
               scale: 1.5,
             ),
-            SizedBox(
-              height: width / 20,
-            ),
-            Expanded(
-              child: Text(descriptionUpper,
-                  style: TextStyle(
-                      color: const Color(0xFF1565C0), fontSize: width / 13)),
-            )
+            Text(descriptionUpper,
+                style: const TextStyle(
+                    color:  Color(0xFF1565C0), fontSize: 13))
           ],
         ),
       ),

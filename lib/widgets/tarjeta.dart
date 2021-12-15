@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
-
-
 class Tarjeta extends StatelessWidget {
   final String city;
   final String temp;
@@ -37,47 +35,42 @@ class Tarjeta extends StatelessWidget {
           color: Color(0xFFFFF8E1),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      city,
-                      style: TextStyle(
-                          fontSize: width / 9,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFF1565C0)),
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    city,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400, color: Color(0xFF1565C0)),
                   ),
-                  const SizedBox(width: 5),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 13),
-                    height: 20,
-                    width: 30,
-                    decoration: const BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Center(
-                        child: Text(
-                      countryCode,
-                      style: const TextStyle(color: Colors.white),
-                    )),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: width / 18,
+                ),
+                const SizedBox(width: 5),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 13),
+                  height: 20,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Center(
+                      child: Text(
+                    countryCode,
+                    style: const TextStyle(color: Colors.white),
+                  )),
+                )
+              ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   temp,
-                  style: TextStyle(
-                      fontSize: width / 6, fontWeight: FontWeight.bold),
+                  style:const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   children: [
@@ -85,9 +78,7 @@ class Tarjeta extends StatelessWidget {
                       '°c',
                       style: TextStyle(fontSize: width / 8),
                     ),
-                    SizedBox(
-                      height: width / 10,
-                    )
+                   const SizedBox(height: 10,)
                   ],
                 )
               ],
@@ -96,11 +87,8 @@ class Tarjeta extends StatelessWidget {
               'http://openweathermap.org/img/w/$icon.png',
               scale: 1.5,
             ),
-            SizedBox(
-              height: width / 9,
-            ),
             Text(descriptionUpper,
-                style: const TextStyle(color: Color(0xFF1565C0)))
+                style: const TextStyle(color: Color(0xFF1565C0))),
           ],
         ),
       ),
